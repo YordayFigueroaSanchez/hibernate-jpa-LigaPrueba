@@ -4,8 +4,11 @@ import java.util.Set;
  
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
  
@@ -19,14 +22,19 @@ public class Game {
  
     private Set<GamePlayer> gamePlayers = new HashSet<GamePlayer>();
     private Set<GameTeam> gameTeams = new HashSet<GameTeam>();
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_league")
+	private League league;
  
     public Game() {
     }
  
-    public Game(String username, String password, String email) {
+    public Game(String username, String password, String email, League league) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.league = league;
     }
      
     public void addPlayer(GamePlayer value) {
@@ -83,7 +91,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + "]";
+		return "Game [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", league=" + league.getId() + "]";
 	}
 	
 	@OneToMany(mappedBy = "game")
@@ -98,6 +106,14 @@ public class Game {
     public void addGameTeam(GameTeam value) {
         this.gameTeams.add(value);
     }
+
+	public League getLeague() {
+		return league;
+	}
+
+	public void setLeague(League league) {
+		this.league = league;
+	}
     
     
 }

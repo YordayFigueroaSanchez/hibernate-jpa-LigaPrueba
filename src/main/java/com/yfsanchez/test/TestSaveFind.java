@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 import com.yfsanchez.modelo.Game;
 import com.yfsanchez.modelo.GamePlayer;
+import com.yfsanchez.modelo.League;
 import com.yfsanchez.modelo.Player;
 
 public class TestSaveFind {
@@ -36,10 +37,10 @@ public class TestSaveFind {
 	static void crearDatos() {
 		EntityManager manager = emf.createEntityManager();
 		manager.getTransaction().begin();
-
-		manager.persist(new Game("tommy1", "ymmot1", "tommy1@gmail.com"));
-		manager.persist(new Game("tommy2", "ymmot2", "tommy2@gmail.com"));
-		manager.persist(new Game("tommy3", "ymmot3", "tommy3@gmail.com"));
+		League l1 = new League("league1");
+		manager.persist(new Game("tommy1", "ymmot1", "tommy1@gmail.com",l1));
+		manager.persist(new Game("tommy2", "ymmot2", "tommy2@gmail.com",l1));
+		manager.persist(new Game("tommy3", "ymmot3", "tommy3@gmail.com",l1));
 		manager.persist(new Player("Coders4"));
 		manager.persist(new Player("Coders5"));
 		manager.persist(new Player("Coders6"));

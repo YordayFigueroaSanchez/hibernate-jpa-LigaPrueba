@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 import com.yfsanchez.modelo.Game;
 import com.yfsanchez.modelo.GamePlayer;
+import com.yfsanchez.modelo.League;
 import com.yfsanchez.modelo.Player;
 
 public class TestSaveDelete {
@@ -35,8 +36,8 @@ public class TestSaveDelete {
 	static void crearDatos() {
 		EntityManager manager = emf.createEntityManager();
 		manager.getTransaction().begin();
-
-		Game user = new Game("tommy", "ymmot", "tommy@gmail.com");
+		League l1 = new League("league1");
+		Game user = new Game("tommy", "ymmot", "tommy@gmail.com",l1);
 		Player group = new Player("Coders");
 		manager.persist(new GamePlayer(user,group,true, new Date()));
 		manager.persist(new GamePlayer(user,group,false, new Date()));
